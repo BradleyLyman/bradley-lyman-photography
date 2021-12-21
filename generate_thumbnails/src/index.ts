@@ -71,6 +71,7 @@ export async function main(event: S3Event) {
     const output_key = await upload_thumbnail(compressed_file, key);
     console.log("Uploaded thumbnail to s3://" + thumbnail_bucket + "/" + key);
     results.push(output_key);
+    fs.rmSync(tmp_copy);
   }
   return results;
 }
