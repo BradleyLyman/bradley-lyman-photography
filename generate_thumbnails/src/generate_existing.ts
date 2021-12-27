@@ -82,12 +82,15 @@ async function find_missing_thumbnails(): Promise<string[]> {
 
 async function generate_missing_thumbnails() {
   let missing_objects = await find_missing_thumbnails();
+  console.info("found missing:", missing_objects);
+  console.info("Generating thumbnails for missing objects...");
   for (let object_key of missing_objects) {
     if (object_key.endsWith("JPG")) {
       console.log("generate thumbnail for", object_key);
       await invoke_lambda(object_key);
     }
   }
+  console.info("Done!");
 }
 
 //find_missing_thumbnails().then(console.log, console.error);

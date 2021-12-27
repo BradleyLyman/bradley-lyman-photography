@@ -1,7 +1,6 @@
 import {
   S3Client,
   ListObjectsV2Command,
-  ListObjectsV2CommandOutput
 } from "@aws-sdk/client-s3";
 
 const client = new S3Client({region: "us-west-1"});
