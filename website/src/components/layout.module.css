@@ -1,6 +1,6 @@
 .container {
   margin: auto;
-  max-width: min(100rem, 95vw);
+  max-width: min(80ch, 95vw);
   font-family: sans-serif;
 }
 
