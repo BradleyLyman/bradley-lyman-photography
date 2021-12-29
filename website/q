@@ -31,7 +31,7 @@ module.exports = {
     {
       resolve: `../my-s3-photos-source-plugin`,
       options: {
-        bucket: "elocaters-photos-development",
+        something: "bogus",
       },
     },
   ],
