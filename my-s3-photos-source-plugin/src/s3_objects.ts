@@ -6,8 +6,6 @@ import {
   GetObjectCommand,
   CopyObjectCommand,
 } from "@aws-sdk/client-s3";
-import * as fs from "fs";
-import * as path from "path";
 import { Readable } from "stream";
 
 const client = new S3Client({ region: "us-west-2" });

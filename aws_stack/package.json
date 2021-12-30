@@ -1,0 +1,37 @@
+{
+  "name": "aws_stack",
+  "version": "0.1.0",
+  "bin": {
+    "aws_stack": "bin/aws_stack.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "@types/sharp": "^0.29.5",
+    "aws-cdk": "2.3.0",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-lambda": "^1.137.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.137.0",
+    "@aws-cdk/core": "^1.137.0",
+    "@aws-sdk/client-lambda": "^3.45.0",
+    "@aws-sdk/client-s3": "^3.45.0",
+    "@types/react-dom": "^17.0.11",
+    "aws-cdk-lib": "2.3.0",
+    "constructs": "^10.0.0",
+    "exif-reader": "^1.0.3",
+    "gatsby-plugin-image": "^2.4.0",
+    "sharp": "^0.29.3",
+    "source-map-support": "^0.5.16"
+  }
+}
