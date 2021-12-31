@@ -8,6 +8,8 @@ const Post = ({ data }: any) => {
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <h3>{data.mdx.frontmatter.date}</h3>
       <MDXRenderer>{data.mdx.body}</MDXRenderer>
+      <hr />
+      <pre>{JSON.stringify(data.allMyS3Image, null, 4)}</pre>
     </Layout>
   );
 };
@@ -20,6 +22,11 @@ export const query = graphql`
         date(formatString: "MMM D, YYYY")
       }
       body
+    }
+    allMyS3Image {
+      nodes {
+        folder
+      }
     }
   }
 `;

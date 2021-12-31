@@ -47,6 +47,11 @@ const Layout = ({ pageTitle, children }: Props) => {
               Blog
             </Link>
           </li>
+          <li className={navLinkItem}>
+            <Link className={navLinkText} to="/album">
+              Albums
+            </Link>
+          </li>
         </ul>
       </nav>
 

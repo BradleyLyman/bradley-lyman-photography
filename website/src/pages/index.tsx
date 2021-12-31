@@ -1,7 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
 import Layout from "../components/layout";
-import MyComponent from "../components/my-component";
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
       >
         <p>some content</p>
         <Link to="/about">About</Link>
-        <MyComponent />
       </div>
     </Layout>
   );

@@ -1,38 +1,20 @@
 import {
   generateImageData,
   IGatsbyImageHelperArgs,
+  IImage,
   ImageFormat,
   Layout,
 } from "gatsby-plugin-image";
 import { getGatsbyImageResolver } from "gatsby-plugin-image/graphql-utils";
-import { RemoteImage } from "./remote_image_node";
+import { RemoteImage } from "my-s3-photos-types";
 import { CreateResolversArgs } from "gatsby";
-
-const generateImageSource: IGatsbyImageHelperArgs["generateImageSource"] = (
-  baseURL: string,
-  width: number,
-  height: number,
-  format: ImageFormat,
-  fit: string,
-  options: Record<string, unknown>
-) => {
-  console.info(`Generate Image Source for ${baseURL}`);
-  console.group();
-  console.info(`WxH: ${width}x${height}`);
-  console.info(`Format: ${format}`);
-  console.info(`Fit: ${fit}`);
-  console.info(`Other Options: ${JSON.stringify(options)}`);
-  console.groupEnd();
-  const src = `https://CDN-DNS/${baseURL}_${width}_${height}.${format}`;
-  return { src, width, height, format };
-};
 
 export interface ResolveImageDataOpts {
   layout: Layout;
   width: number;
   height: number;
   placeholder: string;
-  something_bonkers: string;
+  quality: number;
 }
 
 const resolveGatsbyImageData = async (
@@ -40,6 +22,27 @@ const resolveGatsbyImageData = async (
   options: ResolveImageDataOpts
 ) => {
   const filename = image.key;
+
+  let params = [];
+
+  const generateImageSource: IGatsbyImageHelperArgs["generateImageSource"] = (
+    baseURL: string,
+    width: number,
+    height: number,
+    format: ImageFormat,
+    _fit: string,
+    _options: Record<string, unknown>
+  ): IImage => {
+    params.push({
+      width,
+      height,
+      format,
+      baseURL,
+    });
+    const src = `https://elocaters-photos-original.s3.us-west-2.amazonaws.com/${baseURL}`;
+    //_${width}_${height}.${format}`;
+    return { src, width, height, format };
+  };
 
   const imageDataArgs: IGatsbyImageHelperArgs = {
     ...options,
@@ -60,7 +63,13 @@ const resolveGatsbyImageData = async (
     imageDataArgs.placeholderURL = "A blurred placeholder url";
   }
 
-  return generateImageData(imageDataArgs);
+  let result = generateImageData(imageDataArgs);
+
+  console.log(`GOT PARAMS ${JSON.stringify(params, null, 4)}`);
+
+  /* wait for generation tasks to complete */
+
+  return result;
 };
 
 export default function createResolvers({
@@ -74,7 +83,7 @@ export default function createResolvers({
         width: "Int",
         height: "Int",
         placeholder: "String",
-        something_bonkers: "String",
+        quality: "Int",
       }),
     },
   });

@@ -7,7 +7,7 @@ import {
 import sharp from "sharp";
 import exifr from "exif-reader";
 
-const METADATA_KEY: string = "remoteimagenode_v3";
+const METADATA_KEY: string = "remoteimagenode_v4";
 
 /**
  * The Request format for this lambda function.
@@ -141,5 +141,6 @@ async function write_remote_metadata(
 ): Promise<void> {
   let metadata: Record<string, string> = {};
   metadata[METADATA_KEY] = JSON.stringify(remote_image);
-  return write_object_metadata(bucket, key, metadata);
+  let content_type = `image/${remote_image.format}`;
+  return write_object_metadata(bucket, key, metadata, content_type);
 }

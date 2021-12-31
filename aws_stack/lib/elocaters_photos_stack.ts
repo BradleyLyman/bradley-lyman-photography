@@ -52,5 +52,16 @@ export class ElocatersPhotosStack extends Stack {
     );
 
     originals_bucket.grantReadWrite(get_remote_image_role);
+    originals_bucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        principals: [new iam.StarPrincipal()],
+        actions: ["s3:GetObject", "s3:GetObjectVersion", "s3:ListBucket"],
+        resources: [
+          `arn:aws:s3:::${originals_bucket.bucketName}`,
+          `arn:aws:s3:::${originals_bucket.bucketName}/*`,
+        ],
+      })
+    );
   }
 }

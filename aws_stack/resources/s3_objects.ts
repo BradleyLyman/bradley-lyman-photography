@@ -86,7 +86,8 @@ export async function get_object_metadata(
 export async function write_object_metadata(
   bucket: string,
   key: string,
-  metadata: Record<string, string>
+  metadata: Record<string, string>,
+  content_type: string
 ): Promise<void> {
   console.log(metadata);
   await client.send(
@@ -96,6 +97,7 @@ export async function write_object_metadata(
       CopySource: `${bucket}/${key}`,
       Metadata: metadata,
       MetadataDirective: "REPLACE",
+      ContentType: content_type,
     })
   );
 }
