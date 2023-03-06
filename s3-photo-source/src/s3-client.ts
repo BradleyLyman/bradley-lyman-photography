@@ -14,6 +14,8 @@ const client = new S3Client({
  * List all objects in my photo bucket.
  **/
 export async function listAllObjects(): Promise<string[]> {
+  console.debug("List all S3 Objects");
+
   let truncated = true;
   let object_keys: string[] = [];
   let params: ListObjectsV2CommandInput = {
@@ -23,6 +25,7 @@ export async function listAllObjects(): Promise<string[]> {
   while (truncated) {
     let response = await client.send(new ListObjectsV2Command(params));
 
+    console.debug(`found ${response.Contents!.length} objects`);
     for (let object of response.Contents!) {
       object_keys.push(object.Key!);
     }
@@ -32,6 +35,10 @@ export async function listAllObjects(): Promise<string[]> {
       params.ContinuationToken = response.NextContinuationToken;
     }
   }
+
+  console.debug(
+    `finished listing ${object_keys.length} objects in ${BUCKET_NAME}`
+  );
 
   return object_keys;
 }
