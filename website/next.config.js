@@ -21,4 +21,6 @@ const nextConfig = {
   },
 };
 
+console.log("config dump: ", JSON.stringify(nextConfig, null, 2));
+
 module.exports = nextConfig;
