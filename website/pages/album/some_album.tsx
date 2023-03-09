@@ -10,7 +10,7 @@ export default function Album() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={styles["main"]}>
         <h1>My Album</h1>
         <p>aoeu</p>
       </main>
