@@ -29,7 +29,7 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/photo-archive/package-lock.json') }}
 
     - name: Photo Archive CI
-      run: npm ci --prefix photo-archive
+      run: cd photo-archive && npm install
 
     - name: Photo Archive Build
       run: npm run build --prefix photo-archive
@@ -44,7 +44,7 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/website/package-lock.json') }}
 
     - name: Website CI
-      run: npm ci --prefix website
+      run: cd website && npm install
 
     - name: Website Build
       run: npm run build --prefix website
