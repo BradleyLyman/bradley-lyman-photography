@@ -19,10 +19,10 @@
     "photo-archive": "file:../photo-archive",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "superjson": "^1.12.2",
-    "typescript": "4.9.5"
+    "superjson": "^1.12.2"
   },
   "devDependencies": {
-    "@tsconfig/node18-strictest": "^1.0.0"
+    "@tsconfig/node18-strictest": "^1.0.0",
+    "typescript": "^4.9.5"
   }
 }
