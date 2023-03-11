@@ -23,6 +23,7 @@ export default function Home(props: Props) {
     info.push(
       <div key={album.prefix}>
         <hr />
+        <p>yep</p>
         <h2>{album.name}</h2>
         <h3>{album.date.toDateString()}</h3>
       </div>
