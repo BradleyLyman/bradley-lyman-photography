@@ -21,7 +21,7 @@ jobs:
       with:
         aws-region: us-east-1
         role-to-assume: arn:aws:iam::451738990703:role/BradleyLymanPhotographyGithubAction
-        role-session-name: BradleyLymanPhotography
+        role-session-name: BradleyLymanPhotographyBuild
 
     - name: Setup Node 18
       uses: actions/setup-node@v3
