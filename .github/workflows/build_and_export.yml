@@ -14,19 +14,39 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/cache@v3
+    # Build Photo-Archive
+
+    - name: Photo Archive Cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          photo-archive/node_modules
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/photo-archive/package-lock.json') }}
+
+    - name: Photo Archive CI
+      run: npm ci --prefix photo-archive
+
+    - name: Photo Archive Build
+      run: npm run build --prefix photo-archive
+
+    # Build website
+
+    - name: Website Dependency Cache
+      uses: actions/cache@v3
       with:
         path: |
           website/node_modules
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/website/package-lock.json') }}
 
-    - name: Install
-      run: npm install --prefix website
+    - name: Website CI
+      run: npm ci --prefix website
 
-    - name: Build
+    - name: Website Build
       run: npm run build --prefix website
 
-    - name: Deploy
+    # Deploy
+
+    - name: Deploy Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
