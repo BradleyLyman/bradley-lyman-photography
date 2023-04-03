@@ -8,13 +8,15 @@ import memoize from "micro-memoize";
 
 const listObjectsRaw = async (
   client: S3Client,
-  bucket: string
+  bucket: string,
+  prefix: string
 ): Promise<string[]> => {
   let results: string[] = [];
   let more_results = true;
   let params: ListObjectsV2CommandInput = {
     Bucket: bucket,
     MaxKeys: 200,
+    Prefix: prefix,
   };
   while (more_results) {
     const output = await client.send(new ListObjectsV2Command(params));
@@ -61,7 +63,8 @@ const listObjectPrefixesRaw = async (
 
 export const listObjects: (
   client: S3Client,
-  bucket: string
+  bucket: string,
+  prefix: string
 ) => Promise<string[]> = memoize(listObjectsRaw);
 
 export const listObjectPrefixes: (
