@@ -10,16 +10,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     permissions:
       id-token: write
       contents: write
 
     steps:
     - uses: actions/checkout@v3
-    
+
     # Setup AWS Credentials
-    
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -32,35 +32,16 @@ jobs:
       with:
         node-version: 18.15.0
 
-    # Build Photo-Archive
+    # Build Website
 
-    - name: Photo Archive Cache
+    - name: Website Cache
       uses: actions/cache@v3
       with:
-        path: |
-          photo-archive/node_modules
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/photo-archive/package-lock.json') }}
-
-    - name: Photo Archive CI
-      run: cd photo-archive && npm install
-
-    - name: Photo Archive Build
-      run: npm run build --prefix photo-archive
-
-    # Build website
-
-    - name: Website Dependency Cache
-      uses: actions/cache@v3
-      with:
-        path: |
-          website/node_modules
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/website/package-lock.json') }}
-
-    - name: Website CI
-      run: cd website && npm install
+        path: node_modules
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**package-lock.json') }}
 
     - name: Website Build
-      run: npm run build --prefix website
+      run: npm run build
 
     # Deploy
 
@@ -68,6 +49,6 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./website/out
+        publish_dir: ./dist
 
 
