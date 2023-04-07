@@ -40,6 +40,9 @@ jobs:
         path: node_modules
         key: ${{ runner.os }}-cargo-${{ hashFiles('**package-lock.json') }}
 
+    - name: Website CI
+      run: npm install
+
     - name: Website Build
       run: npm run build
 
